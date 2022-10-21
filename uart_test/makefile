@@ -1,7 +1,7 @@
 TOOLCHAIN_PREFIX = riscv32-elf-
 
 firmware.hex: hex 
-	python makehex.py test.bin 1024 > firmware.hex
+	python makehex.py test.bin 8192 > firmware.hex
 
 hex: firmware.elf
 	riscv32-elf-objcopy -O binary firmware.elf test.bin

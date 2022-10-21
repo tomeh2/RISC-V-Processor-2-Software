@@ -1,33 +1,17 @@
-#define WAIT_CYCLES 1000000
+volatile unsigned short* led_base = (unsigned short*) 0x30000000;
+volatile unsigned char* uart_div_l_reg = (unsigned char*) 0x10000000;
+volatile unsigned char* uart_div_h_reg = (unsigned char*) 0x10000001;
+volatile unsigned char* uart_tx_data_reg = (unsigned char*) 0x10000002;
+volatile unsigned char* uart_status_reg = (unsigned char*) 0x10000003;	//READ ONLY!
 
-//The CPU does not yes support halfword and byte bus transfers so we have to live with 32-bit types and unaligned transfers
-volatile unsigned int* led_base = (unsigned int*) 0x30000000;
-volatile unsigned int* uart_div_l_reg = (unsigned int*) 0x10000000;
-volatile unsigned int* uart_div_h_reg = (unsigned int*) 0x10000001;
-volatile unsigned int* uart_tx_data_reg = (unsigned int*) 0x10000002;
-volatile unsigned int* uart_status_reg = (unsigned int*) 0x10000003;	//READ ONLY!
+char message[64] = "Hello World! But now using SB to store data\n\r\0";
 
-char message[16] = "Hello World!\n\r\0\0";
-
-void sendByte(unsigned int byte)
+void send(char* buf)
 {
-	while (*uart_status_reg != 0);
-	
-	*uart_tx_data_reg = byte;
-}
-
-void sendMessage()
-{
-	unsigned int* messagePtr = (unsigned int*) message;	//Needed to avoid generation of lbu instructions and to generate lw instead
-	unsigned int curr_char;
-	for (int i = 0; i < 4; i++)
+	for (unsigned int i = 0; buf[i] != '\0'; i++)
 	{
-		curr_char = *messagePtr++;
-		for (int j = 0; j < 4; j++)
-		{
-			sendByte(curr_char);
-			curr_char >>= 8;
-		}
+		while(*uart_status_reg == 1);
+		*uart_tx_data_reg = buf[i];
 	}
 }
 
@@ -47,7 +31,7 @@ void main()
 	initUART();
 	while(1)
 	{
-		sendMessage();
-		wait(WAIT_CYCLES);
+		send(message);
+		wait(1000000);
 	}
 }
