@@ -29,9 +29,11 @@ void wait(unsigned int iters)
 void main()
 {
 	initUART();
+	int counter = 1;
 	while(1)
 	{
 		send(message);
+		*led_base = counter++;
 		wait(1000000);
 	}
 }
