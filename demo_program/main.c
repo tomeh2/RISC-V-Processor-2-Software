@@ -9,7 +9,7 @@ extern void send_string(char*);
 
 void wait()
 {
-	for (volatile int i = 0; i < 1000000; i++);
+	for (volatile int i = 0; i < 500000; i++);
 }
 
 void main()
@@ -26,7 +26,7 @@ void main()
 			led_val >>= 1;
 			curr_pos--;
 		}
-		else if (gpio_read_bit(1) && curr_pos < 16)
+		else if (gpio_read_bit(1) && curr_pos < 15)
 		{
 			send_string(str_left);
 			led_val <<= 1;
