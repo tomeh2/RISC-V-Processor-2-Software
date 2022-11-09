@@ -3,11 +3,11 @@ static volatile unsigned char* uart_div_h_reg = (unsigned char*) 0x10000001;
 static volatile unsigned char* uart_tx_data_reg = (unsigned char*) 0x10000002;
 static volatile unsigned char* uart_status_reg = (unsigned char*) 0x10000003;
 
-// Hardcoded for 9600 baud @ 90 MHz
+// Hardcoded for 9600 baud @ 100 MHz
 void init_uart()
 {
-	*uart_div_l_reg = 0x9F;
-	*uart_div_h_reg = 0x24;
+	*uart_div_l_reg = 0xB0;
+	*uart_div_h_reg = 0x28;
 	
 	//*uart_div_l_reg = 0x03;
 	//*uart_div_h_reg = 0x00;
