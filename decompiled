@@ -1,0 +1,120 @@
+
+build/system.elf:     file format elf32-littleriscv
+
+
+Disassembly of section .code:
+
+00000000 <_start>:
+   0:	20000137          	lui	sp,0x20000
+   4:	10010113          	addi	sp,sp,256 # 20000100 <.kern_bss_end_addr+0x2000000c>
+   8:	0ac0006f          	j	b4 <main>
+
+0000000c <console_init>:
+   c:	ff010113          	addi	sp,sp,-16
+  10:	00812623          	sw	s0,12(sp)
+  14:	01010413          	addi	s0,sp,16
+  18:	0b000713          	li	a4,176
+  1c:	0ee02223          	sw	a4,228(zero) # e4 <dlr_reg>
+  20:	02800713          	li	a4,40
+  24:	0ee02423          	sw	a4,232(zero) # e8 <dhr_reg>
+  28:	00000013          	nop
+  2c:	00c12403          	lw	s0,12(sp)
+  30:	01010113          	addi	sp,sp,16
+  34:	00008067          	ret
+
+00000038 <print>:
+  38:	fd010113          	addi	sp,sp,-48
+  3c:	02812623          	sw	s0,44(sp)
+  40:	03010413          	addi	s0,sp,48
+  44:	fca42e23          	sw	a0,-36(s0)
+  48:	fe042623          	sw	zero,-20(s0)
+  4c:	0400006f          	j	8c <print+0x54>
+  50:	00000013          	nop
+  54:	0f002783          	lw	a5,240(zero) # f0 <str_reg>
+  58:	0007c783          	lbu	a5,0(a5)
+  5c:	0ff7f713          	zext.b	a4,a5
+  60:	00100793          	li	a5,1
+  64:	fef708e3          	beq	a4,a5,54 <print+0x1c>
+  68:	fdc42703          	lw	a4,-36(s0)
+  6c:	fec42783          	lw	a5,-20(s0)
+  70:	00f70733          	add	a4,a4,a5
+  74:	0ec02783          	lw	a5,236(zero) # ec <txr_reg>
+  78:	00074703          	lbu	a4,0(a4)
+  7c:	00e78023          	sb	a4,0(a5)
+  80:	fec42783          	lw	a5,-20(s0)
+  84:	00178793          	addi	a5,a5,1
+  88:	fef42623          	sw	a5,-20(s0)
+  8c:	fdc42703          	lw	a4,-36(s0)
+  90:	fec42783          	lw	a5,-20(s0)
+  94:	00f707b3          	add	a5,a4,a5
+  98:	0007c783          	lbu	a5,0(a5)
+  9c:	fa079ae3          	bnez	a5,50 <print+0x18>
+  a0:	00000013          	nop
+  a4:	00000013          	nop
+  a8:	02c12403          	lw	s0,44(sp)
+  ac:	03010113          	addi	sp,sp,48
+  b0:	00008067          	ret
+
+000000b4 <main>:
+  b4:	ff010113          	addi	sp,sp,-16
+  b8:	00112623          	sw	ra,12(sp)
+  bc:	00812423          	sw	s0,8(sp)
+  c0:	01010413          	addi	s0,sp,16
+  c4:	f49ff0ef          	jal	ra,c <console_init>
+  c8:	0d400513          	li	a0,212
+  cc:	f6dff0ef          	jal	ra,38 <print>
+  d0:	0000006f          	j	d0 <main+0x1c>
+
+Disassembly of section .data:
+
+000000d4 <.kern_bss_start_addr-0xe>:
+  d4:	6548                	.2byte	0x6548
+  d6:	6c6c                	.2byte	0x6c6c
+  d8:	6f57206f          	j	72fcc <.kern_bss_end_addr+0x72ed8>
+  dc:	6c72                	.2byte	0x6c72
+  de:	2164                	.2byte	0x2164
+	...
+
+Disassembly of section .sdata:
+
+000000e4 <dlr_reg>:
+  e4:	0000                	.2byte	0x0
+  e6:	1000                	.2byte	0x1000
+
+000000e8 <dhr_reg>:
+  e8:	0001                	.2byte	0x1
+  ea:	1000                	.2byte	0x1000
+
+000000ec <txr_reg>:
+  ec:	0002                	.2byte	0x2
+  ee:	1000                	.2byte	0x1000
+
+000000f0 <str_reg>:
+  f0:	10000003          	lb	zero,256(zero) # 100 <.kern_bss_end_addr+0xc>
+
+Disassembly of section .comment:
+
+00000000 <.comment>:
+   0:	3a434347          	.4byte	0x3a434347
+   4:	2820                	.2byte	0x2820
+   6:	29554e47          	.4byte	0x29554e47
+   a:	3120                	.2byte	0x3120
+   c:	2e31                	.2byte	0x2e31
+   e:	00302e33          	sgtz	t3,gp
+
+Disassembly of section .riscv.attributes:
+
+00000000 <.riscv.attributes>:
+   0:	1b41                	.2byte	0x1b41
+   2:	0000                	.2byte	0x0
+   4:	7200                	.2byte	0x7200
+   6:	7369                	.2byte	0x7369
+   8:	01007663          	bgeu	zero,a6,14 <console_init+0x8>
+   c:	0011                	.2byte	0x11
+   e:	0000                	.2byte	0x0
+  10:	1004                	.2byte	0x1004
+  12:	7205                	.2byte	0x7205
+  14:	3376                	.2byte	0x3376
+  16:	6932                	.2byte	0x6932
+  18:	7032                	.2byte	0x7032
+  1a:	0030                	.2byte	0x30

@@ -1,0 +1,17 @@
+
+build/system.elf:     file format elf32-littleriscv
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .code         000000d4  00000000  00000000  00001000  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         0000000e  000000d4  000000d4  000010d4  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .sdata        00000010  000000e4  000000e4  000010e4  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  3 .bss          00000000  000000f4  000000f4  000010f4  2**0
+                  ALLOC
+  4 .comment      00000012  00000000  00000000  000010f4  2**0
+                  CONTENTS, READONLY
+  5 .riscv.attributes 0000001c  00000000  00000000  00001106  2**0
+                  CONTENTS, READONLY
