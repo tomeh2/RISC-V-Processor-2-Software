@@ -9,7 +9,7 @@ extern void send_string(char*);
 
 void wait()
 {
-	for (volatile int i = 0; i < 500000; i++);
+	for (volatile int i = 0; i < 250000; i++);
 }
 
 void main()
