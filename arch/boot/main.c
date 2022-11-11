@@ -1,9 +1,12 @@
 #include <console.h>
 
-int main(void)
+extern int main();
+
+void startup(void)
 {
 	console_init();
-	print("Hello World!\0");
 	
-	while(1);
+	print("Console initialized\n\r\0");
+	
+	main();
 }

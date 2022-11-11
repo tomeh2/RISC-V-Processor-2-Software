@@ -2,6 +2,8 @@ ENTRY(_start)
 
 SECTIONS 
 {
+	/* Kernel */
+
 	.kern_start_addr = .;
 
 	.kern_code_start_addr = .;
