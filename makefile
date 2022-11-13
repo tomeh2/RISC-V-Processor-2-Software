@@ -21,7 +21,7 @@ $(BUILDDIR_DUMMY):
 	@touch $(BUILDDIR_DUMMY)
 	
 $(BUILDDIR)/%.o: %.c $(BUILDDIR_DUMMY)
-	@$(CC) -c $< -o $@ $(CFLAGS) -Iarch -Iarch/boot $(foreach MACRO,$(CMACROS),-D $(MACRO))
+	@$(CC) -c $< -o $@ $(CFLAGS) -Iarch -Iarch/boot -Ilib $(foreach MACRO,$(CMACROS),-D $(MACRO))
 	
 $(BUILDDIR)/%.S.o: %.S $(BUILDDIR_DUMMY)
 	@$(CC) -c $< -o $@ $(CFLAGS) -Iarch -Iarch/boot $(foreach MACRO,$(CMACROS),-D $(MACRO))

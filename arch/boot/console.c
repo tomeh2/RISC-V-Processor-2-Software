@@ -1,4 +1,5 @@
 #include <types.h>
+#include <string.h>
 
 #define DLR 0		/* Divisor low */
 #define DHR 1		/* Divisor high */
@@ -14,6 +15,9 @@ void console_init()
 {
 	*dlr_reg = (volatile int8_t) 0xB0;
 	*dhr_reg = (volatile int8_t) 0x28;
+	
+	//*dlr_reg = (volatile int8_t) 0x05;
+	//*dhr_reg = (volatile int8_t) 0x00;
 }
 
 void print(char* str)
