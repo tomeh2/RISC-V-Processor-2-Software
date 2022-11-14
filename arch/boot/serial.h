@@ -1,4 +1,4 @@
 #pragma once
 
-void console_init();
+void serial_init();
 void print(char* str);
