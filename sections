@@ -3,15 +3,15 @@ build/firmware.elf:     file format elf32-littleriscv
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .code         00000440  00000000  00000000  00001000  2**2
+  0 .code         000006f0  00000000  00000000  00001000  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000050  00000440  00000440  00001440  2**2
+  1 .data         0000004f  000006f0  000006f0  000016f0  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .sdata        00000024  00000490  00000490  00001490  2**2
+  2 .sdata        00000030  00000740  00000740  00001740  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  3 .bss          00000000  000004b4  000004b4  000014b4  2**0
+  3 .bss          00000000  00000770  00000770  00001770  2**0
                   ALLOC
-  4 .comment      00000012  00000000  00000000  000014b4  2**0
+  4 .comment      00000012  00000000  00000000  00001770  2**0
                   CONTENTS, READONLY
-  5 .riscv.attributes 0000001c  00000000  00000000  000014c6  2**0
+  5 .riscv.attributes 0000001c  00000000  00000000  00001782  2**0
                   CONTENTS, READONLY

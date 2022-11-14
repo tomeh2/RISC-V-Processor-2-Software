@@ -41,3 +41,13 @@ char* strncat(char* dest, const char* src, size_t size)
 	
 	return dest;
 }
+
+char* strcpy(char* dest, char* src)
+{
+	while (*src != '\0')
+		*dest++ = *src++;
+	
+	*dest = '\0';
+	
+	return dest;
+}

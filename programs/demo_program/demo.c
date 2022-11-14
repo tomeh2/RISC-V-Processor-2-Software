@@ -1,6 +1,9 @@
 #include <serial.h>
 #include <gpio.h>
 #include <string.h>
+#include <stdarg.h>
+
+extern int vsprintf(char* s, const char* format, va_list list);
 
 //static char str_left[] = "Moved left\n\r\0"; 
 //static char str_right[] = "Moved right\n\r\0"; 
@@ -10,6 +13,19 @@ static char pos[] = "Position: \0";
 static char sep[] = " | \0";
 
 static char padding[] = "000";
+
+static int printf(const char* format, int p, ...)
+{
+	char printbuf[256];
+	size_t i;
+	
+	va_list list;
+	va_start(list, p);
+	i = vsprintf(printbuf, format, list);
+	print(printbuf);
+	va_end(list);
+	return i;
+}
 
 void wait()
 {
@@ -25,6 +41,7 @@ void main()
 	
 	unsigned int curr_pos = 0;
 	unsigned int led_val = 1;
+	unsigned int test = 0xFAFAFAFA;
 	
 	unsigned int counter = 0;
 	while(1)
@@ -60,6 +77,8 @@ void main()
 		print(text_out);
 		
 		counter++;
+		
+		printf("Printf test: %x\n\r\0", test, counter);
 	}
 	padding[0]++;
 }

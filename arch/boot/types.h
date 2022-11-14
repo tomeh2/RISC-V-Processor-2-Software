@@ -1,5 +1,8 @@
 #pragma once
 
+#define INT_MAX 0x7FFFFFFF
+#define UINT_MAX 0xFFFFFFFF
+
 typedef	char 				int8_t;
 typedef	unsigned char 		uint8_t;
 typedef	short int			int16_t;
