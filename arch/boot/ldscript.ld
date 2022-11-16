@@ -1,36 +1,50 @@
+RAM_BASE_ADDR = 0x20000000;
+
 ENTRY(_start)
 
 SECTIONS 
 {
 	/* Kernel */
 
-	.kern_start_addr = .;
+	kern_start_addr = .;
 
-	.kern_code_start_addr = .;
-
-	.code 0 :
+	_text_start = .;
+	.text 0 :  AT(0)
 	{
 		*/boot/entry.S.o (.text*)
 		
 		*(.text*)
 	}
-	.kern_code_end_addr = .;
+	_text_end = .;
 	
-	.kern_data_start_addr = .;
-	.data :
+	_rodata_rom_start = ADDR(.text) + SIZEOF(.text);
+	_rodata_start = .;
+	.rodata ADDR(.text) + SIZEOF(.text) : AT(_rodata_rom_start)
 	{
-		*(.rodata* .data*)
+		*(.rodata*)
 	}
-	.kern_data_end_addr = .;
+	_rodata_end = .;
 	
-	.kern_bss_start_addr = .;
-	.bss :
+	_data_rom_start = ADDR(.text) + SIZEOF(.text) + SIZEOF(.rodata);
+	_data_start = RAM_BASE_ADDR;
+	.data RAM_BASE_ADDR : AT(_data_rom_start)
 	{
-		*(.bss*)
+		*(.data* .sdata*)
+	}
+	_data_end = .;
+
+	_bss_rom_start = ADDR(.text) + SIZEOF(.text) + SIZEOF(.rodata) + SIZEOF(.data);
+	_bss_start = RAM_BASE_ADDR + SIZEOF(.data);
+	.bss (RAM_BASE_ADDR + SIZEOF(.data)) : 
+	{
+		*(.bss* .sbss*)
 		
 		. = ALIGN(4);
 	}
-	.kern_bss_end_addr = .;
+	_bss_end = .;
+	_bss_size = SIZEOF(.bss);
 	
-	.kern_end_addr = .;
+	bss_end_addr = .;
+	
+	kern_end_addr = .;
 }

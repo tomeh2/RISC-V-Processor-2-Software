@@ -1,5 +1,4 @@
 #include <types.h>
-#include <string.h>
 
 #define DLR 0		/* Divisor low */
 #define DHR 1		/* Divisor high */
