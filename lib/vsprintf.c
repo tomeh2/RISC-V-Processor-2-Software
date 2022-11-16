@@ -16,8 +16,11 @@ int vsnprintf(char* s, size_t n, const char* format, va_list list)
 			switch (*format)
 			{
 				case 'x':
-					itoh(va_arg(list, uint32_t), number_str);
-					//itoh(255, number_str);
+					itoh(va_arg(list, int32_t), number_str);
+					s = strcpy(s, number_str);
+					break;
+				case 'd':
+					itoa(va_arg(list, int32_t), number_str, 10);
 					s = strcpy(s, number_str);
 					break;
 				default:
