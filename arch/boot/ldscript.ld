@@ -19,7 +19,7 @@ SECTIONS
 	
 	_rodata_rom_start = ADDR(.text) + SIZEOF(.text);
 	_rodata_start = .;
-	.rodata ADDR(.text) + SIZEOF(.text) : AT(_rodata_rom_start)
+	.rodata _rodata_rom_start : AT(_rodata_rom_start)
 	{
 		*(.rodata*)
 	}
