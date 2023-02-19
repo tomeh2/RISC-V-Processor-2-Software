@@ -12,11 +12,22 @@ void imat_add(int* matrix1, int* matrix2, int* matrix_res, unsigned int rows, un
 		matrix_res[i] = matrix1[i] + matrix2[i];
 	}
 }
-/*
-void imat_mul()
+
+void imat_mul(int* matrix1, int* matrix2, int* matrix_res, 
+			  unsigned int matrix1_rows, unsigned int matrix1_cols, 
+			  unsigned int matrix2_rows, unsigned int matrix2_cols)
 {
-	
-}*/
+	for (unsigned int i = 0; i < matrix1_rows; i++)
+	{
+		for (unsigned int j = 0; j < matrix1_cols; j++)
+		{
+			for (unsigned int k = 0; k < matrix1_cols; k++)
+			{
+				matrix_res[i * matrix1_cols + j] += matrix1[i * matrix1_cols + k] * matrix2[k * matrix2_cols + j];
+			}
+		}
+	}
+}
 
 void igen_mat(int* matrix, unsigned int rows, unsigned int cols)
 {
@@ -40,10 +51,25 @@ void print_mat(int* matrix, unsigned int rows, unsigned int cols)
 
 int main()
 {
-	int matrix[MAT_ROWS * MAT_COLS];
+	int matA[MAT_ROWS * MAT_COLS];
+	int matB[MAT_ROWS * MAT_COLS];
+	int matC[MAT_ROWS * MAT_COLS];
+	int matD[MAT_ROWS * MAT_COLS];
 	
-	igen_mat(matrix, MAT_ROWS, MAT_COLS);
-	print_mat(matrix, MAT_ROWS, MAT_COLS);
+	igen_mat(matA, MAT_ROWS, MAT_COLS);
+	igen_mat(matB, MAT_ROWS, MAT_COLS);
+	imat_add(matA, matB, matC, MAT_ROWS, MAT_COLS);
+	imat_mul(matA, matB, matD, MAT_ROWS, MAT_COLS, MAT_ROWS, MAT_COLS);
+	
+	printf("----- Matrix A -----\n\r", 0);
+	print_mat(matA, MAT_ROWS, MAT_COLS);
+	printf("----- Matrix B -----\n\r", 0);
+	print_mat(matB, MAT_ROWS, MAT_COLS);
+	printf("----- Matrix C -----\n\r", 0);
+	print_mat(matC, MAT_ROWS, MAT_COLS);
+	printf("----- Matrix D -----\n\r", 0);
+	print_mat(matD, MAT_ROWS, MAT_COLS);
+	
 	
 	padding[1]++;
 	
