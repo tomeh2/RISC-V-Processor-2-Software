@@ -37,15 +37,23 @@ void igen_mat(int* matrix, unsigned int rows, unsigned int cols)
 	}
 }
 
+void init_mat(int* matrix, unsigned int rows, unsigned int cols)
+{
+	for (unsigned int i = 0; i < rows * cols; i++)
+	{
+		matrix[i] = 0;
+	}
+}
+
 void print_mat(int* matrix, unsigned int rows, unsigned int cols)
 {
 	for (unsigned int i = 0; i < rows; i++)
 	{
 		for (unsigned int j = 0; j < cols; j++)
 		{
-			printf("%d ", 0, matrix[cols * i + j]);
+			printf("%d ", matrix[cols * i + j]);
 		}
-		printf("\n\r", 0);
+		printf("\n\r");
 	}
 }
 
@@ -56,18 +64,21 @@ int main()
 	int matC[MAT_ROWS * MAT_COLS];
 	int matD[MAT_ROWS * MAT_COLS];
 	
+	init_mat(matC, MAT_ROWS, MAT_COLS);
+	init_mat(matD, MAT_ROWS, MAT_COLS);
+	
 	igen_mat(matA, MAT_ROWS, MAT_COLS);
 	igen_mat(matB, MAT_ROWS, MAT_COLS);
 	imat_add(matA, matB, matC, MAT_ROWS, MAT_COLS);
 	imat_mul(matA, matB, matD, MAT_ROWS, MAT_COLS, MAT_ROWS, MAT_COLS);
 	
-	printf("----- Matrix A -----\n\r", 0);
+	printf("----- Matrix A -----\n\r");
 	print_mat(matA, MAT_ROWS, MAT_COLS);
-	printf("----- Matrix B -----\n\r", 0);
+	printf("----- Matrix B -----\n\r");
 	print_mat(matB, MAT_ROWS, MAT_COLS);
-	printf("----- Matrix C -----\n\r", 0);
+	printf("----- Matrix C -----\n\r");
 	print_mat(matC, MAT_ROWS, MAT_COLS);
-	printf("----- Matrix D -----\n\r", 0);
+	printf("----- Matrix D -----\n\r");
 	print_mat(matD, MAT_ROWS, MAT_COLS);
 	
 	
