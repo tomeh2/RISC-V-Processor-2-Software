@@ -23,6 +23,9 @@ int vsnprintf(char* s, size_t n, const char* format, va_list list)
 					itoa(va_arg(list, int32_t), number_str, 10);
 					s = strcpy(s, number_str);
 					break;
+				case 'c':
+					*s++ = (int8_t) va_arg(list, int32_t);
+					break;
 				default:
 					*s++ = '0';
 			}
