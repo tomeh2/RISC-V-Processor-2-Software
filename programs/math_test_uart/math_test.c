@@ -3,8 +3,8 @@
 #include <string.h>
 #include <imatrix_ops.h>
 
-#define MAT_ROWS 16
-#define MAT_COLS 16
+#define MAT_ROWS 32
+#define MAT_COLS 32
 #define SEPARATOR 's'
 
 static char padding[] = "0000";
