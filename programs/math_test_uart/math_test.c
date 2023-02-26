@@ -2,9 +2,10 @@
 #include <serial.h>
 #include <string.h>
 #include <imatrix_ops.h>
+#include <gpio.h>
 
-#define MAT_ROWS 32
-#define MAT_COLS 32
+#define MAT_ROWS 48
+#define MAT_COLS 48
 #define SEPARATOR 's'
 
 static char padding[] = "0000";
@@ -34,11 +35,20 @@ int uart_load_int()
 
 void uart_load_matrix(int* matrix, unsigned int rows, unsigned int cols)
 {
+	unsigned int progress_bar = 1;
+	gpio_write(0);
 	for (unsigned int i = 0; i < rows * cols; i++)
 	{ 
 		matrix[i] = uart_load_int();
-		printf("Loaded %d / %d\r\n", 0, i + 1, rows * cols);
+		//printf("Loaded %d / %d\r\n", 0, i + 1, rows * cols);
+		
+		if (i % ((rows * cols) / 16) == 0)
+		{
+			gpio_write(progress_bar);
+			progress_bar = (progress_bar << 1) + 1;
+		}
 	}
+	gpio_write(0);
 }
 
 void print_mat(int* matrix, unsigned int rows, unsigned int cols)
@@ -61,9 +71,11 @@ int main()
 	
 	printf("Loading Matrix A...\r\n", 0);
 	uart_load_matrix(matA, MAT_ROWS, MAT_COLS);
+	//igen_mat(matA, MAT_ROWS, MAT_COLS);
 	printf("Matrix A loaded!\r\n", 0);
 	
 	printf("Loading Matrix B...\r\n", 0);
+	//igen_mat(matB, MAT_ROWS, MAT_COLS);
 	uart_load_matrix(matB, MAT_ROWS, MAT_COLS);
 	printf("Matrix B loaded!\r\n\r\n", 0);
 	

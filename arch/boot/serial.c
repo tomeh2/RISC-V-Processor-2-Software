@@ -12,9 +12,14 @@ static volatile int32_t* str_reg = (volatile int32_t*) (UART_BASE_ADDR + STR);
 
 void serial_init()
 {
+	uint32_t div = CPU_CLK_MHZ * 1000000 / UART_BAUD_RATE;
+	
 	// 115200 baud rate @ 100 MHz
-	*dlr_reg = (volatile int32_t) 0x64;
-	*dhr_rxr_reg = (volatile int32_t) 0x03;
+	//*dlr_reg = (volatile int32_t) 0x64;
+	//*dhr_rxr_reg = (volatile int32_t) 0x03;
+	
+	*dlr_reg = div & 0xFF;
+	*dhr_rxr_reg = (div >> 8) & 0xFF;
 	
 	//*dlr_reg = (volatile int8_t) 0x05;
 	//*dhr_rxr_reg = (volatile int8_t) 0x00;
@@ -24,7 +29,7 @@ void print(char* str)
 {
 	for (uint32_t i = 0; str[i] != '\0'; i++)
 	{
-        while (*str_reg == 1) {}
+        while (*str_reg & 0x1) {}
 		*txr_reg = str[i];
 	}
 }

@@ -3,12 +3,12 @@ import random
 import numpy as np
 import keyboard
 
-ser = serial.Serial('COM4', 115200, timeout = 1)
+ser = serial.Serial('COM4', 576000, timeout = 1)
 ser.close()
 ser.open()
 
-rows = 32
-cols = 32
+rows = 48
+cols = 48
 
 x = np.arange(rows * cols)
 x.shape = (rows, cols)
@@ -30,7 +30,7 @@ for i in range(rows):
         ser.write('s'.encode('ascii', 'ignore'))
         #print(ser.readline())
         f.write(str_r + 's')
-        print(ser.readline())
+        #print(ser.readline())
     
 print(ser.readline())   #mat a done
 print(ser.readline())   #mat b load...
@@ -47,7 +47,7 @@ for i in range(rows):
         ser.write('s'.encode('ascii', 'ignore'))
         #print(ser.readline())
         f.write(str_r + 's')
-        print(ser.readline())
+        #print(ser.readline())
     
 while (True):
     print(ser.readline())
