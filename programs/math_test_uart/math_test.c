@@ -3,6 +3,7 @@
 #include <string.h>
 #include <imatrix_ops.h>
 #include <gpio.h>
+#include <cpu.h>
 
 #define MAT_ROWS 48
 #define MAT_COLS 48
@@ -65,6 +66,14 @@ void print_mat(int* matrix, unsigned int rows, unsigned int cols)
 
 int main()
 {
+	unsigned int cycles = 0;
+	unsigned int instret = 0;
+	
+	CSRR_READ(cycles, 0xC00);
+	CSRR_READ(instret, 0xC02);
+	
+	printf("Cycles: %d | Instret: %d\r\n", 0, cycles, instret);
+	
 	int matA[MAT_ROWS * MAT_COLS];
 	int matB[MAT_ROWS * MAT_COLS];
 	int matC[MAT_ROWS * MAT_COLS];
@@ -96,6 +105,11 @@ int main()
 	printf("---------- Matrix A*B ----------\r\n", 0);
 	print_mat(matC, MAT_ROWS, MAT_COLS);
 	printf("--------------------------------\r\n\r\n", 0);
+	
+	CSRR_READ(cycles, 0xC00);
+	CSRR_READ(instret, 0xC02);
+	
+	printf("Cycles: %d | Instret: %d\r\n", 0, cycles, instret);
 	
 	padding[1]++;
 	
